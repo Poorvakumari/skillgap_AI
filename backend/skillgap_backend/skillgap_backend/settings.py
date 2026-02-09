@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
-    
+    'jobs',
+    'jobApplication',
     'accounts',
     'skills',
-    'roles',
+    
     'roadmap',
 ]
 
@@ -161,3 +162,6 @@ SIMPLE_JWT={
 AUTHENTICATION_BACKENDS=[
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+MEDIA_URL='/media/'
+MEDIA_ROOT=BASE_DIR/'media'

@@ -8,18 +8,18 @@ from .serializers import SkillSerializer,PendingSkillSerializer
 from .permissions import IsAdmin
 from django.contrib.auth import get_user_model
 User=get_user_model()
-class AddSkillView(APIView):
-    permission_classes=[IsAuthenticated]
+# class AddSkillView(APIView):
+#     permission_classes=[IsAuthenticated]
 
-    def post(self,request):
-        data=request.data
-        skill=Skill.objects.create(
-            user=request.user,
-            name=data['name']
-        )
-        return Response({
-            "message":"Skill submitted for approval"
-        })
+#     def post(self,request):
+#         data=request.data
+#         skill=Skill.objects.create(
+#             user=request.user,
+#             name=data['name']
+#         )
+#         return Response({
+#             "message":"Skill submitted for approval"
+#         })
     
 class SkillListAdminView(APIView):
     permission_classes=[IsAuthenticated,IsAdmin]
@@ -129,6 +129,11 @@ class UserSkillDeleteView(APIView):
                 {"error":"Skill not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
+        if skill.status=="APPROVED":
+            return Response(
+                {"error":"Approved skills cannot be deleted"},
+                status=status.HTTP_403_FORBIDDEN
+            )
         skill.delete()
         return Response(
             {"message":"Skill deleted"},
@@ -145,8 +150,30 @@ class UserSkillUpdateView(APIView):
                 {"error":"Skill not found"},
                 status=status.HTTP_404_NOT_FOUND
             )
+        if skill.status=="APPROVED":
+            return Response(
+                {"error":"Approved skills cannot be edited"},
+                status=status.HTTP_403_FORBIDDEN
+            )
         serializer=SkillSerializer(skill,data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message":"Skill updated successfully"})
+            return Response(serializer.data)
         return Response(serializer.errors,status=400)
+
+class UserSkillsSummaryView(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self,request):
+        user=request.user
+        total_skills=Skill.objects.filter(user=user).count()
+        approved_skills=Skill.objects.filter(user=user, status='APPROVED').count()
+        pending_skills=Skill.objects.filter(user=user, status='PENDING').count()
+        rejected_skills=Skill.objects.filter(user=user, status='REJECTED').count()
+
+        data={
+            "total_skills":total_skills,
+            "approved_skills":approved_skills,
+            "pending_skills":pending_skills,
+            "rejected_skills":rejected_skills,
+        }
+        return Response(data)

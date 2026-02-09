@@ -25,7 +25,13 @@ class User(AbstractBaseUser,PermissionsMixin):
     )
     email=models.EmailField(unique=True)
     role=models.CharField(max_length=10,choices=ROLE_CHOICES,default='USER')
-
+    first_name=models.CharField(max_length=100,blank=True)
+    last_name=models.CharField(max_length=100,blank=True)
+    profile_image=models.ImageField(
+        upload_to='profile_pics/',
+        blank=True,
+        null=True
+    )
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True)

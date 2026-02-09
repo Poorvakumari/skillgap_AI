@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import AddSkillView,SkillListAdminView,ApproveSkillView,AdminDashboardView,PendingSkillListView,SkillActionView,BulkSkillActionView,UserSkillListCreateView,UserSkillDeleteView,UserSkillUpdateView
+from .views import SkillListAdminView,ApproveSkillView,AdminDashboardView,PendingSkillListView,SkillActionView,BulkSkillActionView,UserSkillListCreateView,UserSkillDeleteView,UserSkillUpdateView,UserSkillsSummaryView
 
 urlpatterns=[
-    path('add/',AddSkillView.as_view(),name='add_skill'),
+    # path('add/',AddSkillView.as_view(),name='add_skill'),
     path('admin/skills/',SkillListAdminView.as_view(),name='admin_skills'),
     path('admin/skills/<int:skill_id>/approve/',ApproveSkillView.as_view(),name='approve_skill'),
     path('admin/dashboard/',AdminDashboardView.as_view(),name='admin_dashboard'),
@@ -12,4 +12,5 @@ urlpatterns=[
     path('user/skills/',UserSkillListCreateView.as_view(),name='user_skills'),
     path('user/skills/<int:skill_id>/delete/',UserSkillDeleteView.as_view(),name='delete_skill'),
     path('user/skills/<int:skill_id>/update/',UserSkillUpdateView.as_view()),
+    path('user/skills-summary/',UserSkillsSummaryView.as_view()),
 ]

@@ -7,6 +7,7 @@ from .permissions import IsAdmin,IsUser
 from .models import User
 from rest_framework.permissions import IsAuthenticated
 from skills.models import Skill
+from rest_framework.parsers import MultiPartParser,FormParser
 
 class RegisterView(APIView):
     permission_classes=[]
@@ -102,10 +103,44 @@ class UserDashboardView(APIView):
     
 class UserProfileView(APIView):
     permission_classes=[IsAuthenticated]
+    parser_classes=[MultiPartParser,FormParser]
     def get(self,request):
-        serializer=UserProfileSerializer(request.user)
-        return Response(serializer.data)
-    
+        # serializer=UserProfileSerializer(request.user)
+        # return Response(serializer.data)
+        user=request.user
+        skills=Skill.objects.filter(user=user)
+        approved=skills.filter(status="APPROVED").count()
+        pending=skills.filter(status="PENDING").count()
+        rejected=skills.filter(status="REJECTED").count()
+        return Response({
+            "email":user.email,
+            "first_name":user.first_name,
+            "last_name":user.last_name,
+            "profile_image":(
+                request.build_absolute_uri(user.profile_image.url) if user.profile_image else None
+                if user.profile_image else None
+            ),
+            "date_joined":user.created_at,
+            "skills_summary":{
+                "Total":skills.count(),
+                "approved":approved,
+                "pending":pending,
+                "rejected":rejected
+            }
+        })
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def put(self,request):
+        user=request.user
+        user.first_name=request.data.get("first_name") or user.first_name
+        user.last_name=request.data.get("last_name") or user.last_name
+
+        if "profile_image" in request.FILES:
+            user.profile_image=request.FILES["profile_image"]
+        user.save()
+        return Response({"message":"Profile updated successfully"},
+                        status=status.HTTP_200_OK)
+
+
 # class UserRegisterView(APIView):
 #     def post(self,request):
 #         serializer=UserRegisterSerializer(data=request.data)
@@ -116,4 +151,4 @@ class UserProfileView(APIView):
 #                     "message":"User created successfully"
 #                 },status=status.HTTP_201_CREATED
 #             )
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+# 
