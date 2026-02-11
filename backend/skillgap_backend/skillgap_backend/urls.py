@@ -37,7 +37,7 @@ urlpatterns = [
     # path('api/accounts/',include('accounts.urls')),
 
     path('api/jobs/',include('jobs.urls')),
-    path('api/applications/',include("jobApplication.urls")),
+    path('api/job-applications/',include("jobApplication.urls")),
     path('api/roadmap/',include('roadmap.urls')),
 ]
 # if settings.DEBUG:

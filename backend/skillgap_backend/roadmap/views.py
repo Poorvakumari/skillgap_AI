@@ -11,3 +11,10 @@ class UserRoadmapView(APIView):
         roadmaps=Roadmap.objects.filter(application__user=request.user)
         serializer=RoadmapSerializer(roadmaps,many=True)
         return Response(serializer.data)
+
+class RoadmapByApplicationView(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self,request,application_id):
+        roadmap=Roadmap.objects.get(application_id=application_id)
+        serializer=RoadmapSerializer(roadmap)
+        return Response(serializer.data)
