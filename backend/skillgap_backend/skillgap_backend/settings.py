@@ -192,5 +192,14 @@ CORS_ALLOW_ALL_ORIGINS=True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+if not User.objects.filter(email="admin@gmail.com").exists():
+    User.objects.create_superuser(
+        email="admin@gmail.com",
+        password="admin123"
+    )
 
 # postgresql://skillgap_db_hvae_user:VjsJl6PGJiCmIdZimVGuqHpmQxdhTqqA@dpg-d6b0vkjnv86c73ca1ts0-a/skillgap_db_hvae
