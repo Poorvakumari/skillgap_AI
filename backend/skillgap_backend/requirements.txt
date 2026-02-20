@@ -10,4 +10,4 @@ sqlparse==0.5.5
 tzdata==2025.3
 gunicorn==25.1.0
 whitenoise==6.11.0
-dj_database_url==0.5.5
+dj_database_url==3.1.2
