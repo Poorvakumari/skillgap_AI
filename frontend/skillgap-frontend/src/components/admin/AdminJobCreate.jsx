@@ -28,31 +28,31 @@ const AdminJobCreate = () => {
                 placeholder='Job Title'
                 onChange={e=>setForm({...form,title:e.target.value})}
                 className='w-full bg-white/10 border border-white/20 
-                px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none'
+                px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none text-black'
             />
 
             <textarea
                 placeholder='Description'
                 onChange={e=>setForm({...form,description:e.target.value})}
                 className='w-full bg-white/10 border border-white/20 
-                px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none'
+                px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none text-black'
             />
 
             <select
                 onChange={e=>setForm({...form,experience_level:e.target.value})}
                 className='w-full bg-white/10 border border-white/20 px-4 py-3 rounded-xl'
             >
-                <option>Fresher</option>
-                <option >Junior</option>
-                <option >Mid</option>
+                <option className='text-black'>Fresher</option>
+                <option  className='text-black'>Junior</option>
+                <option  className='text-black'>Mid</option>
             </select>
             <input
                 placeholder='Location'
-                className='w-full bg-white/10 border border-white/20 px-4 py-3 rounded-xl'
+                className='w-full bg-white/10 border border-white/20 px-4 py-3 rounded-xl text-black'
                 onChange={e=> setForm({...form,location:e.target.value})}
             />
             <button  className='w-full bg-gradient-to-r from-pink-500 to-purple-600 
-                px-6 y-3 rounded-xl font-semibold hover:scale-105 transition'
+                px-6 y-5 rounded-xl font-semibold hover:scale-105 transition'
             >
                 Create Job
             </button>

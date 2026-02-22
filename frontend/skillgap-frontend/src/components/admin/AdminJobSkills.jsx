@@ -63,7 +63,7 @@ const AdminJobSkills = () => {
         <div className="flex gap-4 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl">
             <input
                 placeholder='Skill'
-                className='bg-white/10 border border-white/20 px-4 py-2 rounded-xl'
+                className='text-black bg-white/10 border border-white/20 px-4 py-2 rounded-xl'
                 value={form.skill_name}
                 onChange={e=>setForm({...form,skill_name:e.target.value})}
             />
@@ -71,9 +71,9 @@ const AdminJobSkills = () => {
                 className='bg-white/10 border border-white/20 px-4 py-2 rounded-xl'
                 onChange={e=>setForm({...form,level:e.target.value})}
             >
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
+                <option className='text-black'>Beginner</option>
+                <option className='text-black'>Intermediate</option>
+                <option className='text-black'>Advanced</option>
             </select>
             <button onClick={addSkill} className="bg-gradient-to-r from-pink-500 to-purple-600 
             px-6 rounded-xl font-semibold">
@@ -88,18 +88,18 @@ const AdminJobSkills = () => {
                     {editingId===skill.id ? (
                         <div className='flex gap-2'>
                             <input
-                                className='font-medium border p-1'
+                                className='font-medium border p-1 text-black'
                                 value={form.skill_name}
                                 onChange={e=>setForm({...form,skill_name:e.target.value})}
                             />
                             <select
-                                className='font-medium border p-1'
+                                className='font-medium border p-1 text-black'
                                 value={form.level}
                                 onChange={e=>setForm({...form,level:e.target.value})}
                             >
-                                <option>Beginner</option>
-                                <option>Intermediate</option>
-                                <option>Advanced</option>
+                                <option className='text-black'>Beginner</option>
+                                <option className='text-black'>Intermediate</option>
+                                <option className='text-black'>Advanced</option>
                             </select>
                             <button
                                 onClick={()=>updateSkill(skill.id)}

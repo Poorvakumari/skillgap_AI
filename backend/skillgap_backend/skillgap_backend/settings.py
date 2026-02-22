@@ -67,6 +67,7 @@ from corsheaders.defaults import default_headers
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://skillgap-frontend-wsin.onrender.com",
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
@@ -188,7 +189,7 @@ AUTHENTICATION_BACKENDS=[
 
 MEDIA_URL='/media/'
 MEDIA_ROOT=BASE_DIR/'media'
-CORS_ALLOW_ALL_ORIGINS=True
+# CORS_ALLOW_ALL_ORIGINS=True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
