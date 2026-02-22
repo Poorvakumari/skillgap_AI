@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../services/api';
 // import SkillsSummary from './SkillsSummary';
+import defaultProfile from '../../assets/mycol-crow-3985484_1920.jpg'
 
 const Profile = () => {
     const [profile,setProfile]=useState(null);
@@ -61,7 +62,7 @@ const Profile = () => {
                     profile.profile_image ||
                     `https://ui-avatars.com/api/?name=${profile.first_name || "user"}`
                 }
-                alt='Profile'
+                alt={defaultProfile}
                 className='w-24 h-24 rounded-full object-cover border-4 border-white/20'
             />
             {/* <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl font-bold">

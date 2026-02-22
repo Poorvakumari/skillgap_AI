@@ -27,14 +27,14 @@ const AdminJobCreate = () => {
             <input
                 placeholder='Job Title'
                 onChange={e=>setForm({...form,title:e.target.value})}
-                className='w-full bg-white/10 border border-white/20 
+                className='w-full bg-white/50 border border-white/20 
                 px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none text-black'
             />
 
             <textarea
                 placeholder='Description'
                 onChange={e=>setForm({...form,description:e.target.value})}
-                className='w-full bg-white/10 border border-white/20 
+                className='w-full bg-white/50 border border-white/20 
                 px-4 py-3 rounded-xl focus:ring-2 focus:ring-pink-500 outline-none text-black'
             />
 
@@ -48,11 +48,11 @@ const AdminJobCreate = () => {
             </select>
             <input
                 placeholder='Location'
-                className='w-full bg-white/10 border border-white/20 px-4 py-3 rounded-xl text-black'
+                className='w-full bg-white/50 border border-white/20 px-4 py-3 rounded-xl text-black'
                 onChange={e=> setForm({...form,location:e.target.value})}
             />
             <button  className='w-full bg-gradient-to-r from-pink-500 to-purple-600 
-                px-6 y-5 rounded-xl font-semibold hover:scale-105 transition'
+                px-6 y-5 py-3 rounded-xl font-semibold hover:scale-105 transition'
             >
                 Create Job
             </button>

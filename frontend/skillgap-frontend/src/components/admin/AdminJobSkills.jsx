@@ -63,7 +63,7 @@ const AdminJobSkills = () => {
         <div className="flex gap-4 bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-2xl">
             <input
                 placeholder='Skill'
-                className='text-black bg-white/10 border border-white/20 px-4 py-2 rounded-xl'
+                className='text-black bg-white/50 border border-white/20 px-4 py-2 rounded-xl'
                 value={form.skill_name}
                 onChange={e=>setForm({...form,skill_name:e.target.value})}
             />
