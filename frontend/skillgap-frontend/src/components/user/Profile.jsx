@@ -57,14 +57,15 @@ const Profile = () => {
     <>
       <div className="text-white space-y-8">
         <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 flex items-center gap-6 shadow-2xl">
-            <img
+            {/* <img
                 src={
                     profile.profile_image ||
                     `https://ui-avatars.com/api/?name=${profile.first_name || "user"}`
                 }
                 alt={defaultProfile}
                 className='w-24 h-24 rounded-full object-cover border-4 border-white/20'
-            />
+            /> */}
+            <img src={defaultProfile} alt="Profile" className='w-24 h-24 rounded-full object-cover border-4 border-white/20' />
             {/* <div className="w-20 h-20 rounded-full bg-black text-white flex items-center justify-center text-2xl font-bold">
                 {profile.first_name
                 ? profile.first_name[0].toUpperCase()
