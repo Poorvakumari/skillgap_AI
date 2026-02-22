@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import DashboardCard from '../admin/DashboardCard';
 import { Loader2,Layers,Clock,CheckCircle,XCircle, } from 'lucide-react' ;
 import UserLayout from './UserLayout';
-import axios from 'axios';
+import api from '../../services/api';
 
 const UserDashboard = () => {
   const [stats,setStats]=useState(null);
   const [error,setError]=useState(null);
   useEffect(()=>{
     const token=localStorage.getItem("access_token");
-    axios.get("http://127.0.0.1:8000/api/user/dashboard/",{
+    api.get("/user/dashboard/",{
       headers:{
         Authorization:`Bearer ${token}`,
       },

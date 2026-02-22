@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { Pencil, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
+import api from '../../services/api';
 
 const MySkills = () => {
   const[skills,setSkills]=useState([]);
@@ -14,7 +14,7 @@ const MySkills = () => {
   },[]);
   const fetchSkills=async()=>{
     try{
-      const res=await axios.get("http://127.0.0.1:8000/api/user/skills/",{
+      const res=await api.get("/user/skills/",{
         headers:{
           Authorization:`Bearer ${token}`,
         },
@@ -36,7 +36,7 @@ const MySkills = () => {
     }
     if(!window.confirm("Are you sure you want to delte this skill?")) return;
     try{
-      await axios.delete(`http://127.0.0.1:8000/api/user/skills/${skill_id}/delete/`,{
+      await api.delete(`/user/skills/${skill_id}/delete/`,{
         headers:{
           Authorization:`Bearer ${token}`,
         },
@@ -49,8 +49,8 @@ const MySkills = () => {
 
   const handleUpdate=async()=>{
     try{
-      const res=await axios.put(
-        `http://127.0.0.1:8000/api/user/skills/${editingSkill.id}/update/`,
+      const res=await api.put(
+        `/user/skills/${editingSkill.id}/update/`,
         {
           name:editName,
           level:editLevel,
@@ -69,12 +69,12 @@ const MySkills = () => {
       console.error(err);
     }
   };
-  const getStatusBadege=(status)=>{
-    const base="px-3 py-1 rounded-full text-sm font-medium ";
-    if(status==="APPROVED") return `${base} bg-green-100 text-green-700`;
-    if(status==="REJECTED") return `${base} bg-red-100 text-red-700`;
-    return `${base} bg-yellow-100 text-yellow-700`;
-  };
+  // const getStatusBadege=(status)=>{
+  //   const base="px-3 py-1 rounded-full text-sm font-medium ";
+  //   if(status==="APPROVED") return `${base} bg-green-100 text-green-700`;
+  //   if(status==="REJECTED") return `${base} bg-red-100 text-red-700`;
+  //   return `${base} bg-yellow-100 text-yellow-700`;
+  // };
   if(loading){
     return <p className="text-center text-gray-500">Loading Skills...</p>
   }

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import DashboardCard from "./admin/DashboardCard";
 import { Loader2,Layers,Clock,CheckCircle,XCircle } from "lucide-react";
 import AdminLayout from "./admin/AdminLayout";
+import api from "../services/api";
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    axios
-      .get("http://127.0.0.1:8000/api/job-applications/admin/dashboard-stats/", {
+      api.get("/job-applications/admin/dashboard-stats/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

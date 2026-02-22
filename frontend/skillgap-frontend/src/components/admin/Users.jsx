@@ -1,7 +1,7 @@
-import axios from 'axios';
 import  {  useEffect, useState } from 'react'
 // import AdminLayout from './AdminLayout';
 import ConfirmModal  from './ConfirmModal';
+import api from '../../services/api';
 
 const Users = () => {
     const [users,setUsers]=useState([]);
@@ -20,7 +20,7 @@ const Users = () => {
     const fetchUsers=async()=>{
         try{
             const token=localStorage.getItem("access_token");
-            const res=await axios.get("http://127.0.0.1:8000/api/admin/users/",{
+            const res=await api.get("/admin/users/",{
                 headers:{
                     Authorization:`Bearer ${token}`,
                 },
@@ -51,15 +51,15 @@ const Users = () => {
         const token=localStorage.getItem("access_token");
         try{
             if(actionType==="status"){
-                await axios.post(
-                `http://127.0.0.1:8000/api/admin/users/${selectedUser.id}/toggle-status/`,
+                await api.post(
+                `/admin/users/${selectedUser.id}/toggle-status/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
                 );
             }
             if(actionType==="role"){
-                await axios.post(
-                `http://127.0.0.1:8000/api/admin/users/${selectedUser.id}/toggle-role/`,
+                await api.post(
+                `/admin/users/${selectedUser.id}/toggle-role/`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
                 );

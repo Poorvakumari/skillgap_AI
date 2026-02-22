@@ -1,11 +1,11 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Loader2, PlusCircle } from 'lucide-react';
+import api from '../../services/api';
 
 const AddSkill = () => {
   const [name,setName]=useState("");
-  const [description,setDescription]=useState("");
+  // const [description,setDescription]=useState("");
   const [level,setLevel]=useState("beginner");
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState(null);
@@ -21,7 +21,7 @@ const AddSkill = () => {
     }
     try{
       setLoading(true);
-      await axios.post("http://127.0.0.1:8000/api/user/skills/",{
+      await api.post("/user/skills/",{
         name,
         level,
       },

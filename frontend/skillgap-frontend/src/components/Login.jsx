@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
+import api from '../services/api';
 const Login = ({onLogin}) => {
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
@@ -11,7 +11,7 @@ const Login = ({onLogin}) => {
     const handleLogin=async(e)=>{
         e.preventDefault();
         try{
-            const res=await axios.post("http://127.0.0.1:8000/api/token/",{
+            const res=await api.post("/token/",{
                 email:email,
                 password:password,
         });
