@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { Link } from 'react-router-dom';
 
@@ -7,16 +7,17 @@ const AdminJobList = () => {
     const[page,setPage]=useState(1);
     const [next,setNext]=useState(null);
     const [previous,setPrevious]=useState(null);
-    useEffect(()=>{
-        fetchJobs();
-    },[page]);
 
-    const fetchJobs=async()=>{
+    const fetchJobs=useCallback(async()=>{
         const res= await api.get(`/jobs/list/?page=${page}`);
         setJobs(res.data.results || []);
         setNext(res.data.next);
         setPrevious(res.data.previous);
-    }
+    },[page]);
+    
+    useEffect(()=>{
+        fetchJobs();
+    },[fetchJobs]);
   return (
     <>
       <div className='space-y-8 text-white'>

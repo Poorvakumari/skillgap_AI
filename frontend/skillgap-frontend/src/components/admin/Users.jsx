@@ -14,9 +14,6 @@ const Users = () => {
     const[selectedUser,setSelectedUser]=useState(null);
     const[actionType,setActionType]=useState("");
     const[actionLoading,setActionLoading]=useState(false);
-    useEffect(()=>{
-        fetchUsers();
-    },[]);
     const fetchUsers=async()=>{
         try{
             const token=localStorage.getItem("access_token");
@@ -33,6 +30,9 @@ const Users = () => {
             setLoading(false);
         }
     };
+    useEffect(()=>{
+        fetchUsers();
+    },[]);
 
     const filteredUsers=users.filter((user)=>
         user.email.toLowerCase().includes(search.toLowerCase())

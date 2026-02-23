@@ -11,11 +11,6 @@ const Profile = () => {
     const[lastName,setLastName]=useState("");
     const[image,setImage]=useState(null);
     // const [skillsSummary,setSkillsSummary]=useState(null);
-
-    useEffect(()=>{
-        fetchProfile();
-        // fetchSkillsSummary();
-    },[]);
     const fetchProfile=async()=>{
         try{
             const res=await api.get('/user/profile/');
@@ -28,6 +23,10 @@ const Profile = () => {
             setLoading(false);
         }
     };
+    useEffect(()=>{
+        fetchProfile();
+        // fetchSkillsSummary();
+    },[]);
     const handleUpdate=async()=>{
         const formData=new FormData();
         formData.append("first_name",firstName);

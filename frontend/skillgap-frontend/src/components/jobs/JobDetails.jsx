@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { useParams } from 'react-router-dom'
 
@@ -7,21 +7,36 @@ const JobDetails = () => {
     const[skills,setSkills]=useState([]);
     const [job,setJobs]=useState(null);
     const [applied,setApplied]=useState(false);
-    
+    const [loading,setLoading]=useState(true);
+    const [error,setError]=useState(null);
 
-    useEffect(()=>{
-        fetchJob();
-        fetchSkills();
+    const fetchJob=useCallback(async()=>{
+        try{
+            const res=await api.get(`/jobs/${jobId}/`);
+            setJobs(res.data);
+        } catch (err){
+            console.error(err);
+            setError("Failed to load the job details.");
+        }
     },[jobId]);
-
-    const fetchJob=async()=>{
-        const res=await api.get(`/jobs/${jobId}/`);
-        setJobs(res.data)
-    };
-    const fetchSkills=async()=>{
-        const res=await api.get(`/jobs/${jobId}/skills/`);
-        setSkills(res.data);
-    };
+    const fetchSkills=useCallback(async()=>{
+        try{
+            const res=await api.get(`/jobs/${jobId}/skills/`);
+            setSkills(res.data);
+        } catch(err){
+            console.error(err);
+            setError("Failed to load skills.")
+        }
+    },[jobId]);
+    useEffect(()=>{
+        const loadData=async()=>{
+            setLoading(true);
+            await Promise.all([fetchJob(),fetchSkills()]);
+        };
+        if (jobId){
+            loadData();
+        }
+    },[jobId,fetchJob,fetchSkills]);
     const applyJob=async()=>{
         try{
             await api.post(`/job-applications/apply/${jobId}/`);
@@ -32,7 +47,9 @@ const JobDetails = () => {
             alert("Error applying for job");
         }
     }
-    if (!job) return <p>Loading...</p>
+    if(loading) return <p className='text-center'>Loading...</p>;
+    if (error) return <p className='text-red-500 text-center'>{error}</p>;
+    if(!job) return null;
   return (
     <>
       <div>
