@@ -68,6 +68,7 @@ from corsheaders.defaults import default_headers
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://skillgap-frontend-wsin.onrender.com",
+    "https://skillgap-jobapplication.vercel.app",
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
