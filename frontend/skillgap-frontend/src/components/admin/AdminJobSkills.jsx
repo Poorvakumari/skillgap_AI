@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api'
 import { useParams } from 'react-router-dom'
 
@@ -12,16 +12,15 @@ const AdminJobSkills = () => {
         is_mandatory:true,
     });
 
-    const fetchSkills=async()=>{
+    const fetchSkills=useCallback(async()=>{
+        if(!jobId) return;
         const res=await api.get(`/jobs/admin/${jobId}/skills/`);
         setSkills(res.data);
-    };
+    },[jobId]);
 
     useEffect(()=>{
-        if(jobId){
-            fetchSkills();
-        }
-    },[jobId]);
+        fetchSkills();
+    },[fetchSkills]);
 
     const addSkill=async()=>{
         await api.post(`/jobs/admin/${jobId}/add-skill/`,form);

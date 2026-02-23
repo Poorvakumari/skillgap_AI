@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api';
 
 const MySkills = () => {
@@ -9,10 +9,8 @@ const MySkills = () => {
   const[editName,setEditName]=useState("");
   const[editLevel,setEditLevel]=useState("");
   const token=localStorage.getItem("access_token");
-  useEffect(()=>{
-    fetchSkills();
-  },[]);
-  const fetchSkills=async()=>{
+  const fetchSkills=useCallback(async()=>{
+    if (!token) return;
     try{
       const res=await api.get("/user/skills/",{
         headers:{
@@ -26,7 +24,10 @@ const MySkills = () => {
     } finally{
       setLoading(false);
     }
-  };
+  },[token]);
+  useEffect(()=>{
+    fetchSkills();
+  },[fetchSkills]);
 
   const handleDelete=async(skill_id)=>{
     const skill=skills.find(s=>s.id===skill_id);

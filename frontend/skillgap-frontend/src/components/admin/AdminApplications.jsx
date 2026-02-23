@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import api from '../../services/api'
 
 const AdminApplications = () => {
@@ -9,16 +9,15 @@ const AdminApplications = () => {
     const [next,setNext]=useState(null);
     const [previous,setPrevious]=useState(null);
 
-    useEffect(()=>{
-        fetchApplications();
-    },[page]);
-
-    const fetchApplications=async()=>{
+    const fetchApplications=useCallback(async()=>{
         const res=await api.get(`/job-applications/admin/applications/?page=${page}`);
         setApplications(res.data.results || []);
         setNext(res.data.next);
         setPrevious(res.data.previous);
-    };
+    },[page]);
+    useEffect(()=>{
+        fetchApplications();
+    },[fetchApplications]);
     const evaluate=async(id,action)=>{
         await api.post(`/job-applications/admin/evaluate/${id}/`,{
             action:action,
