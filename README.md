@@ -134,6 +134,7 @@ MySQL Database
 
 -   Backend hosted on Render
 -   Frontend hosted on Vercel
+-   Backend hosted on Render (free tier – may experience cold start delay)
 
 ------------------------------------------------------------------------
 
