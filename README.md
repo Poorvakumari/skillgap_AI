@@ -2,7 +2,7 @@
 
 ### Application & Evaluation Management System
 
-🔗 **Live Application:** https://skillgap-jobapplication.vercel.app/\
+🔗 **Live Application:** https://skillgap-jobapplication.vercel.app/
 📂 **Source Code:** https://github.com/Poorvakumari/skillgap_AI
 
 ------------------------------------------------------------------------
